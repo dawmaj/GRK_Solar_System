@@ -122,7 +122,7 @@ void renderScene()
 	//get mercury position vector
 	glm::vec3 mercury_center(MercuryModelMatrix * glm::vec4(1.0f));
 	//Moon
-	glm::mat4 MoonModelMatrix = glm::translate(mercury_center) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)moon_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(0, 0, 0.7f)) * glm::scale(glm::vec3(0.1f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);
+	glm::mat4 MoonModelMatrix = glm::rotate(MercuryModelMatrix, (glm::mediump_float)moon_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(0, 0, 2.0f)) * glm::scale(glm::vec3(0.2f));
 	drawObjectTexture(&sphereModel, MoonModelMatrix, tex_id);
 
 	glutSwapBuffers();
