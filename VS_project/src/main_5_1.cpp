@@ -19,6 +19,7 @@ GLuint earth;
 
 float y_rotation_angle;
 float around_rotation_angle;
+float moon_rotation_angle;
 
 Core::Shader_Loader shaderLoader;
 
@@ -96,6 +97,7 @@ void renderScene()
 {
 	y_rotation_angle += 0.001;
 	around_rotation_angle += 0.0003;
+	moon_rotation_angle += 0.002;
 	// Aktualizacja macierzy widoku i rzutowania. Macierze sa przechowywane w zmiennych globalnych, bo uzywa ich funkcja drawObject.
 	// (Bardziej elegancko byloby przekazac je jako argumenty do funkcji, ale robimy tak dla uproszczenia kodu.
 	//  Jest to mozliwe dzieki temu, ze macierze widoku i rzutowania sa takie same dla wszystkich obiektow!)
@@ -114,25 +116,39 @@ void renderScene()
 	glm::mat4 SunModelMatrix = glm::scale(glm::vec3(3.0f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, SunModelMatrix, tex_id);
 	   
-	//Merkury - (rotacja * translacja)(obrot wzgledem centrum) * translacja(przesuniecie od srodka) * skalowanie * rotacja(rotacja wokol osi y)
+	////Merkury - (rotacja * translacja)(obrot wzgledem centrum) * translacja(przesuniecie od srodka) * skalowanie * rotacja(rotacja wokol osi y)
 	//glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	glm::mat4 MercuryModelMatrix = glm::rotate(glm::mat4(1.2f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(0, 0, 6.0f)) * glm::scale(glm::vec3(0.3f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, MercuryModelMatrix, tex_id);
-	//Wenus
-	glm::mat4 VenusModelMatrix = glm::rotate(glm::mat4(0.75f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(4.5f, 0, 10.0f)) * glm::scale(glm::vec3(0.95f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
-	drawObjectTexture(&sphereModel, VenusModelMatrix, tex_id);
+	//get mercury position vector
+	glm::vec3 mercury_center(MercuryModelMatrix * glm::vec4(1.0f));
+	//Moon
+	glm::mat4 MoonModelMatrix = glm::rotate(MercuryModelMatrix, (glm::mediump_float)moon_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(0, 0, 2.0f)) * glm::scale(glm::vec3(0.2f));
+	drawObjectTexture(&sphereModel, MoonModelMatrix, tex_id);
+	////Wenus
+	glm::mat4 venusmodelmatrix = glm::rotate(glm::mat4(0.75f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(4.5f, 0, 10.0f)) * glm::scale(glm::vec3(0.95f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myrotationaxis);
+	drawObjectTexture(&sphereModel, venusmodelmatrix, tex_id);
 	//Ziemia
 	glm::mat4 EarthModelMatrix = glm::rotate(glm::mat4(0.8f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(-3.0f, 0, 16.5f)) * glm::scale(glm::vec3(1.0f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, EarthModelMatrix, earth);
+
+	glm::vec3 earth_center(EarthModelMatrix * glm::vec4(1.0f));
 	//Ksiê¿yc
-	glm::mat4 MoonModelMatrix = glm::rotate(glm::mat4(1.0f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(-3.0f, 0, 18.5f)) * glm::scale(glm::vec3(0.45f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
-	drawObjectTexture(&sphereModel, MoonModelMatrix, tex_id); //todo rotacja wokó³ planety
+	glm::mat4 MoonEarthModelMatrix = glm::rotate(EarthModelMatrix, (glm::mediump_float)moon_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(0, 0, 1.0f)) * glm::scale(glm::vec3(0.25f));
+	drawObjectTexture(&sphereModel, MoonModelMatrix, tex_id); 
 	//Mars
-	glm::mat4 MarsModelMatrix = glm::rotate(glm::mat4(0.8f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(-3.0f, 0, 16.5f)) * glm::scale(glm::vec3(0.5f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
-	drawObjectTexture(&sphereModel, MarsModelMatrix, earth);
+	glm::mat4 MarsModelMatrix = glm::rotate(glm::mat4(0.8f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(-3.0f, 0, 21.5f)) * glm::scale(glm::vec3(0.5f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	drawObjectTexture(&sphereModel, MarsModelMatrix, tex_id);
 	//Jowisz
 	glm::mat4 JupiterModelMatrix = glm::rotate(glm::mat4(0.1f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(8.0f, 0, 26.5f)) * glm::scale(glm::vec3(2.5f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, JupiterModelMatrix, tex_id);
+
+	glm::vec3 jupiter_center(EarthModelMatrix * glm::vec4(1.0f));
+	//Ksiê¿yc
+	glm::mat4 MoonJupiterModelMatrix = glm::rotate(JupiterModelMatrix, (glm::mediump_float)moon_rotation_angle, -myRotationAxis) * glm::translate(glm::vec3(0, 0, 1.4f)) * glm::scale(glm::vec3(0.25f));
+	drawObjectTexture(&sphereModel, MoonJupiterModelMatrix, tex_id);
+	glm::mat4 Moon2JupiterModelMatrix = glm::rotate(JupiterModelMatrix, (glm::mediump_float)moon_rotation_angle, myRotationAxis+0.2f) * glm::translate(glm::vec3(0, 0, 1.9f)) * glm::scale(glm::vec3(0.45f));
+	drawObjectTexture(&sphereModel, Moon2JupiterModelMatrix, tex_id);
 	//Saturn
 	glm::mat4 SaturnModelMatrix = glm::rotate(glm::mat4(0.25f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(-6.0f, 0, 35.0f)) * glm::scale(glm::vec3(2.0f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, SaturnModelMatrix, tex_id);
