@@ -25,6 +25,12 @@
     <ClInclude Include="src\Shader_Loader.h" />
     <ClInclude Include="src\Texture.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\shader_color.frag" />
+    <None Include="shaders\shader_color.vert" />
+    <None Include="shaders\shader_tex.frag" />
+    <None Include="shaders\shader_tex.vert" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1B448102-E76C-4347-BDC7-40D02A567DB6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

@@ -15,6 +15,7 @@
 GLuint programColor;
 GLuint programTexture;
 GLuint tex_id;
+GLuint earth;
 
 float y_rotation_angle;
 float around_rotation_angle;
@@ -108,15 +109,21 @@ void renderScene()
 	glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f + glm::vec3(0,-0.25f,0)) * glm::rotate(-cameraAngle + glm::radians(90.0f), glm::vec3(0,1,0)) * glm::scale(glm::vec3(0.25f));
 	drawObjectColor(&shipModel, shipModelMatrix, glm::vec3(0.6f));
 	
-	glm::vec3 myRotationAxis(0.0f, 1.0f, 0.0f );
+	glm::vec3 myRotationAxis(0.0f, 1.0f, 0.0f);
 	//Sun - skalowanie * rotacja (wzgledem osi y)
 	glm::mat4 SunModelMatrix = glm::scale(glm::vec3(2.0f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, SunModelMatrix, tex_id);
-
+	   
 	//Merkury - (rotacja * translacja)(obrot wzgledem centrum) * translacja(przesuniecie od srodka) * skalowanie * rotacja(rotacja wokol osi y)
 	//glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
-	glm::mat4 MercuryModelMatrix = glm::rotate(glm::mat4(1.0f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(0, 0, 6.0f)) * glm::scale(glm::vec3(0.3f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	glm::mat4 MercuryModelMatrix = glm::rotate(glm::mat4(1.2f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(0, 0, 6.0f)) * glm::scale(glm::vec3(0.3f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, MercuryModelMatrix, tex_id);
+	//Wenus
+	glm::mat4 VenusModelMatrix = glm::rotate(glm::mat4(0.75f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(4.5f, 0, 10.0f)) * glm::scale(glm::vec3(0.95f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	drawObjectTexture(&sphereModel, VenusModelMatrix, tex_id);
+	//Ziemia
+	glm::mat4 EarthModelMatrix = glm::rotate(glm::mat4(0.8f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(-3.0f, 0, 16.5f)) * glm::scale(glm::vec3(1.2f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	drawObjectTexture(&sphereModel, EarthModelMatrix, earth);
 
 	glutSwapBuffers();
 }
@@ -131,6 +138,7 @@ void init()
 	sphereModel = obj::loadModelFromFile("models/sphere.obj");
 	shipModel = obj::loadModelFromFile("models/spaceship.obj");
 	tex_id = Core::LoadTexture("textures/grid.png");
+	earth = Core::LoadTexture("textures/earth.png");
 }
 
 void shutdown()

@@ -51,4 +51,18 @@
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\shader_color.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="shaders\shader_color.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="shaders\shader_tex.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="shaders\shader_tex.vert">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
