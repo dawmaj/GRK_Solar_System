@@ -1,0 +1,6 @@
+﻿  main_5_1.cpp
+c:\users\dawid\desktop\grk_solar_system-master\vs_project\src\main_5_1.cpp(97): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\dawid\desktop\grk_solar_system-master\vs_project\src\main_5_1.cpp(98): warning C4305: '+=': truncation from 'double' to 'float'
+Camera.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
+  grk-cw5.vcxproj -> C:\Users\Dawid\Desktop\GRK_Solar_System-master\VS_project\Debug\grk-cw5.exe
+  grk-cw5.vcxproj -> C:\Users\Dawid\Desktop\GRK_Solar_System-master\VS_project\Debug\grk-cw5.pdb (Full PDB)
