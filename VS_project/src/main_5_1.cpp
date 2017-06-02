@@ -18,6 +18,7 @@ GLuint tex_id;
 
 float y_rotation_angle;
 float around_rotation_angle;
+float moon_rotation_angle;
 
 Core::Shader_Loader shaderLoader;
 
@@ -95,6 +96,7 @@ void renderScene()
 {
 	y_rotation_angle += 0.001;
 	around_rotation_angle += 0.0003;
+	moon_rotation_angle += 0.002;
 	// Aktualizacja macierzy widoku i rzutowania. Macierze sa przechowywane w zmiennych globalnych, bo uzywa ich funkcja drawObject.
 	// (Bardziej elegancko byloby przekazac je jako argumenty do funkcji, ale robimy tak dla uproszczenia kodu.
 	//  Jest to mozliwe dzieki temu, ze macierze widoku i rzutowania sa takie same dla wszystkich obiektow!)
@@ -114,9 +116,14 @@ void renderScene()
 	drawObjectTexture(&sphereModel, SunModelMatrix, tex_id);
 
 	//Merkury - (rotacja * translacja)(obrot wzgledem centrum) * translacja(przesuniecie od srodka) * skalowanie * rotacja(rotacja wokol osi y)
-	//glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	glm::mat4 MercuryModelMatrix = glm::rotate(glm::mat4(1.0f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(0, 0, 6.0f)) * glm::scale(glm::vec3(0.3f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, MercuryModelMatrix, tex_id);
+
+	//get mercury position vector
+	glm::vec3 mercury_center(MercuryModelMatrix * glm::vec4(1.0f));
+	//Moon
+	glm::mat4 MoonModelMatrix = glm::translate(mercury_center) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)moon_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(0, 0, 0.7f)) * glm::scale(glm::vec3(0.1f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);
+	drawObjectTexture(&sphereModel, MoonModelMatrix, tex_id);
 
 	glutSwapBuffers();
 }
@@ -125,6 +132,7 @@ void init()
 {
 	y_rotation_angle = 0;
 	around_rotation_angle = 0;
+	moon_rotation_angle = 0;
 	glEnable(GL_DEPTH_TEST);
 	programColor = shaderLoader.CreateProgram("shaders/shader_color.vert", "shaders/shader_color.frag");
 	programTexture = shaderLoader.CreateProgram("shaders/shader_tex.vert", "shaders/shader_tex.frag");
