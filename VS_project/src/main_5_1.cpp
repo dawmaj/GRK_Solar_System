@@ -14,7 +14,8 @@
 
 GLuint programColor;
 GLuint programTexture;
-GLuint tex_id;
+GLuint test_texture;
+GLuint earth;
 
 float y_rotation_angle;
 float around_rotation_angle;
@@ -92,38 +93,76 @@ void drawObjectTexture(obj::Model * model, glm::mat4 modelMatrix, GLuint id)
 	glUseProgram(0);
 }
 
-void renderScene()
+void drawPlanets()
 {
 	y_rotation_angle += 0.001;
 	around_rotation_angle += 0.0003;
 	moon_rotation_angle += 0.002;
-	// Aktualizacja macierzy widoku i rzutowania. Macierze sa przechowywane w zmiennych globalnych, bo uzywa ich funkcja drawObject.
-	// (Bardziej elegancko byloby przekazac je jako argumenty do funkcji, ale robimy tak dla uproszczenia kodu.
-	//  Jest to mozliwe dzieki temu, ze macierze widoku i rzutowania sa takie same dla wszystkich obiektow!)
-	cameraMatrix = createCameraMatrix();
-	perspectiveMatrix = Core::createPerspectiveMatrix();
 
+	glm::vec3 myRotationAxis(0.0f, 1.0f, 0.0f);
+	//Sun
+	glm::mat4 SunModelMatrix = glm::scale(glm::vec3(3.0f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);
+	drawObjectTexture(&sphereModel, SunModelMatrix, test_texture);
+
+	//Merkury
+	glm::mat4 MercuryModelMatrix = glm::rotate(glm::mat4(1.2f), (glm::mediump_float)around_rotation_angle*20.0f, myRotationAxis) * glm::translate(glm::vec3(0, 0, 6.0f)) * glm::scale(glm::vec3(0.3f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*6.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	drawObjectTexture(&sphereModel, MercuryModelMatrix, test_texture);
+
+	////Wenus
+	glm::mat4 venusmodelmatrix = glm::rotate(glm::mat4(0.75f), (glm::mediump_float)around_rotation_angle*10.0f, myRotationAxis) * glm::translate(glm::vec3(4.5f, 0, 10.0f)) * glm::scale(glm::vec3(0.95f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*8.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myrotationaxis);
+	drawObjectTexture(&sphereModel, venusmodelmatrix, test_texture);
+
+	//Earth
+	glm::mat4 EarthModelMatrix = glm::rotate(glm::mat4(0.8f), (glm::mediump_float)around_rotation_angle*6.0f, myRotationAxis) * glm::translate(glm::vec3(-3.0f, 0, 16.5f)) * glm::scale(glm::vec3(1.0f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*35.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	drawObjectTexture(&sphereModel, EarthModelMatrix, test_texture);
+
+	//Earth Moon
+	glm::mat4 MoonEarthModelMatrix = glm::rotate(EarthModelMatrix, (glm::mediump_float)moon_rotation_angle*6.0f, myRotationAxis) * glm::translate(glm::vec3(0, 0, 1.5f)) * glm::scale(glm::vec3(0.35f));
+	drawObjectTexture(&sphereModel, MoonEarthModelMatrix, test_texture);
+
+	//Mars
+	glm::mat4 MarsModelMatrix = glm::rotate(glm::mat4(0.8f), (glm::mediump_float)around_rotation_angle*4.0f, myRotationAxis) * glm::translate(glm::vec3(-3.0f, 0, 21.5f)) * glm::scale(glm::vec3(0.5f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*50.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	drawObjectTexture(&sphereModel, MarsModelMatrix, test_texture);
+
+	//Jupiter
+	glm::mat4 JupiterModelMatrix = glm::rotate(glm::mat4(0.1f), (glm::mediump_float)around_rotation_angle*0.0002f, myRotationAxis) * glm::translate(glm::vec3(8.0f, 0, 26.5f)) * glm::scale(glm::vec3(2.5f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*60.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	drawObjectTexture(&sphereModel, JupiterModelMatrix, test_texture);
+
+	//Jupiter Moons
+	glm::mat4 MoonJupiterModelMatrix = glm::rotate(JupiterModelMatrix, (glm::mediump_float)moon_rotation_angle*0.0002f, -myRotationAxis) * glm::translate(glm::vec3(0, 0, 1.4f)) * glm::scale(glm::vec3(0.25f));
+	drawObjectTexture(&sphereModel, MoonJupiterModelMatrix, test_texture);
+	glm::mat4 Moon2JupiterModelMatrix = glm::rotate(JupiterModelMatrix, (glm::mediump_float)moon_rotation_angle*0.0002f, myRotationAxis) * glm::translate(glm::vec3(0.2f, 0, 1.9f)) * glm::scale(glm::vec3(0.45f));
+	drawObjectTexture(&sphereModel, Moon2JupiterModelMatrix, test_texture);
+
+	//Saturn
+	glm::mat4 SaturnModelMatrix = glm::rotate(glm::mat4(0.25f), (glm::mediump_float)around_rotation_angle*0.0002f, myRotationAxis) * glm::translate(glm::vec3(-6.0f, 0, 35.0f)) * glm::scale(glm::vec3(2.0f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*70.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	drawObjectTexture(&sphereModel, SaturnModelMatrix, test_texture);
+
+	//Uranus
+	glm::mat4 UraniumModelMatrix = glm::rotate(glm::mat4(0.75f), (glm::mediump_float)around_rotation_angle*0.00002f, myRotationAxis) * glm::translate(glm::vec3(4.0f, 0, 47.5f)) * glm::scale(glm::vec3(1.8f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*65.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	drawObjectTexture(&sphereModel, UraniumModelMatrix, test_texture);
+
+	//Neptun
+	glm::mat4 NeptuneModelMatrix = glm::rotate(glm::mat4(0.45f), (glm::mediump_float)around_rotation_angle*0.0005f, myRotationAxis) * glm::translate(glm::vec3(1.5f, 0, 54.5f)) * glm::scale(glm::vec3(1.6f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*65.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	drawObjectTexture(&sphereModel, NeptuneModelMatrix, test_texture);
+}
+
+void drawShip()
+{
+	glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f + glm::vec3(0, -0.25f, 0)) * glm::rotate(-cameraAngle + glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.25f));
+	drawObjectColor(&shipModel, shipModelMatrix, glm::vec3(0.6f));
+}
+
+void renderScene()
+{
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
 
-	// Macierz statku "przyczepia" go do kamery. Warto przeanalizowac te linijke i zrozumiec jak to dziala.
-	glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f + glm::vec3(0,-0.25f,0)) * glm::rotate(-cameraAngle + glm::radians(90.0f), glm::vec3(0,1,0)) * glm::scale(glm::vec3(0.25f));
-	drawObjectColor(&shipModel, shipModelMatrix, glm::vec3(0.6f));
-	
-	glm::vec3 myRotationAxis(0.0f, 1.0f, 0.0f );
-	//Sun - skalowanie * rotacja (wzgledem osi y)
-	glm::mat4 SunModelMatrix = glm::scale(glm::vec3(2.0f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);
-	drawObjectTexture(&sphereModel, SunModelMatrix, tex_id);
+	cameraMatrix = createCameraMatrix();
+	perspectiveMatrix = Core::createPerspectiveMatrix();
 
-	//Merkury - (rotacja * translacja)(obrot wzgledem centrum) * translacja(przesuniecie od srodka) * skalowanie * rotacja(rotacja wokol osi y)
-	glm::mat4 MercuryModelMatrix = glm::rotate(glm::mat4(1.0f), (glm::mediump_float)around_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(0, 0, 6.0f)) * glm::scale(glm::vec3(0.3f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
-	drawObjectTexture(&sphereModel, MercuryModelMatrix, tex_id);
-
-	//get mercury position vector
-	glm::vec3 mercury_center(MercuryModelMatrix * glm::vec4(1.0f));
-	//Moon
-	glm::mat4 MoonModelMatrix = glm::rotate(MercuryModelMatrix, (glm::mediump_float)moon_rotation_angle, myRotationAxis) * glm::translate(glm::vec3(0, 0, 2.0f)) * glm::scale(glm::vec3(0.2f));
-	drawObjectTexture(&sphereModel, MoonModelMatrix, tex_id);
+	drawShip();
+	drawPlanets();
 
 	glutSwapBuffers();
 }
@@ -138,7 +177,8 @@ void init()
 	programTexture = shaderLoader.CreateProgram("shaders/shader_tex.vert", "shaders/shader_tex.frag");
 	sphereModel = obj::loadModelFromFile("models/sphere.obj");
 	shipModel = obj::loadModelFromFile("models/spaceship.obj");
-	tex_id = Core::LoadTexture("textures/grid.png");
+	test_texture = Core::LoadTexture("textures/grid.png");
+	//earth = Core::LoadTexture("textures/earth.png");
 }
 
 void shutdown()
