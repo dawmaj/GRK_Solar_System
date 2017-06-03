@@ -1,0 +1,19 @@
+TO DO:
+
+Wszyscy:
+- porz¹dek w kodzie! 
+
+Dawid:
+- ustawic scene - odwzorowanie naszego uk³adu s³onecznego, zakladamy ¿e nasz statek jest du¿y, wiêæ planety bêd¹ stotsunoko ma³e, ale nale¿y pamiêtaæ by zachowaæ proporcjê miêdzy nimi, oraz zwróciæ uwagê na ich okresy obiegu i obortu.
+- œwiat³o?
+
+
+Stachu:
+-sky box - tekstura terenu
+-sterowanie myszk¹ - implementacja z u¿yciem kwaterionów
+-kolizje
+
+Kuba:
+-textury statyczne - ksiê¿yæ, s³oñce, ziemia?
+-textury generyczne - ca³a reszta, najlepiej szumem Perlina
+-jakiœ fajniejszy model stateczku

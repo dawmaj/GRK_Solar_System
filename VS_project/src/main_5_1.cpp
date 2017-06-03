@@ -124,7 +124,7 @@ void drawMatrixes()
 	//Ziemia
 	glm::mat4 EarthModelMatrix = glm::rotate(glm::mat4(0.8f), (glm::mediump_float)around_rotation_angle*6.0f, myRotationAxis) * glm::translate(glm::vec3(-3.0f, 0, 16.5f)) * glm::scale(glm::vec3(1.0f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*35.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, EarthModelMatrix, earth);
-	//Ksiê¿yc
+	//Ksiï¿½yc
 	glm::mat4 MoonEarthModelMatrix = glm::rotate(EarthModelMatrix, (glm::mediump_float)moon_rotation_angle*6.0f, myRotationAxis) * glm::translate(glm::vec3(0, 0, 1.5f)) * glm::scale(glm::vec3(0.35f));
 	drawObjectTexture(&sphereModel, MoonModelMatrix, tex_id);
 	//Mars
@@ -133,7 +133,7 @@ void drawMatrixes()
 	//Jowisz
 	glm::mat4 JupiterModelMatrix = glm::rotate(glm::mat4(0.1f), (glm::mediump_float)around_rotation_angle*0.0002f, myRotationAxis) * glm::translate(glm::vec3(8.0f, 0, 26.5f)) * glm::scale(glm::vec3(2.5f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*60.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, JupiterModelMatrix, tex_id);
-	//Ksiê¿yc
+	//Ksiï¿½yc
 	glm::mat4 MoonJupiterModelMatrix = glm::rotate(JupiterModelMatrix, (glm::mediump_float)moon_rotation_angle*0.0002f, -myRotationAxis) * glm::translate(glm::vec3(0, 0, 1.4f)) * glm::scale(glm::vec3(0.25f));
 	drawObjectTexture(&sphereModel, MoonJupiterModelMatrix, tex_id);
 	glm::mat4 Moon2JupiterModelMatrix = glm::rotate(JupiterModelMatrix, (glm::mediump_float)moon_rotation_angle*0.0002f, myRotationAxis) * glm::translate(glm::vec3(0.2f, 0, 1.9f)) * glm::scale(glm::vec3(0.45f));
@@ -154,7 +154,6 @@ void renderScene()
 	glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
 	drawMatrixes();
 	// Macierz statku "przyczepia" go do kamery. Warto przeanalizowac te linijke i zrozumiec jak to dziala.
-	
 	glutSwapBuffers();
 }
 
@@ -162,6 +161,7 @@ void init()
 {
 	y_rotation_angle = 0;
 	around_rotation_angle = 0;
+	moon_rotation_angle = 0;
 	glEnable(GL_DEPTH_TEST);
 	programColor = shaderLoader.CreateProgram("shaders/shader_color.vert", "shaders/shader_color.frag");
 	programTexture = shaderLoader.CreateProgram("shaders/shader_tex.vert", "shaders/shader_tex.frag");
