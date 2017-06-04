@@ -115,37 +115,37 @@ void drawPlanets()
 	drawObjectTexture(&sphereModel, venusmodelmatrix, test_texture);
 
 	//Earth
-	glm::mat4 EarthModelMatrix = glm::rotate(glm::mat4(0.8f), (glm::mediump_float)around_rotation_angle*6.0f, myRotationAxis) * glm::translate(glm::vec3(-3.0f, 0, 16.5f)) * glm::scale(glm::vec3(1.0f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*35.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	glm::mat4 EarthModelMatrix = glm::rotate(glm::mat4(0.8f), (glm::mediump_float)around_rotation_angle*2.0f, myRotationAxis) * glm::translate(glm::vec3(-3.0f, 0, 16.5f)) * glm::scale(glm::vec3(1.0f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*10.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, EarthModelMatrix, test_texture);
 
 	//Earth Moon
-	glm::mat4 MoonEarthModelMatrix = glm::rotate(EarthModelMatrix, (glm::mediump_float)moon_rotation_angle*6.0f, myRotationAxis) * glm::translate(glm::vec3(0, 0, 1.5f)) * glm::scale(glm::vec3(0.35f));
+	glm::mat4 MoonEarthModelMatrix = glm::rotate(EarthModelMatrix, (glm::mediump_float)moon_rotation_angle*2.0f, myRotationAxis) * glm::translate(glm::vec3(0, 0, 1.5f)) * glm::scale(glm::vec3(0.35f));
 	drawObjectTexture(&sphereModel, MoonEarthModelMatrix, test_texture);
 
 	//Mars
-	glm::mat4 MarsModelMatrix = glm::rotate(glm::mat4(0.8f), (glm::mediump_float)around_rotation_angle*4.0f, myRotationAxis) * glm::translate(glm::vec3(-3.0f, 0, 21.5f)) * glm::scale(glm::vec3(0.5f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*50.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	glm::mat4 MarsModelMatrix = glm::rotate(glm::mat4(0.8f), (glm::mediump_float)around_rotation_angle*4.0f, myRotationAxis) * glm::translate(glm::vec3(-3.0f, 0, 21.5f)) * glm::scale(glm::vec3(0.5f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*15.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, MarsModelMatrix, test_texture);
 
 	//Jupiter
-	glm::mat4 JupiterModelMatrix = glm::rotate(glm::mat4(0.1f), (glm::mediump_float)around_rotation_angle*0.0002f, myRotationAxis) * glm::translate(glm::vec3(8.0f, 0, 26.5f)) * glm::scale(glm::vec3(2.5f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*60.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	glm::mat4 JupiterModelMatrix = glm::rotate(glm::mat4(0.1f), (glm::mediump_float)around_rotation_angle*0.2f, myRotationAxis) * glm::translate(glm::vec3(8.0f, 0, 26.5f)) * glm::scale(glm::vec3(2.5f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*25.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, JupiterModelMatrix, test_texture);
 
 	//Jupiter Moons
-	glm::mat4 MoonJupiterModelMatrix = glm::rotate(JupiterModelMatrix, (glm::mediump_float)moon_rotation_angle*0.0002f, -myRotationAxis) * glm::translate(glm::vec3(0, 0, 1.4f)) * glm::scale(glm::vec3(0.25f));
+	glm::mat4 MoonJupiterModelMatrix = glm::rotate(JupiterModelMatrix, (glm::mediump_float)moon_rotation_angle*0.2f, -myRotationAxis) * glm::translate(glm::vec3(0, 0, 1.4f)) * glm::scale(glm::vec3(0.25f));
 	drawObjectTexture(&sphereModel, MoonJupiterModelMatrix, test_texture);
-	glm::mat4 Moon2JupiterModelMatrix = glm::rotate(JupiterModelMatrix, (glm::mediump_float)moon_rotation_angle*0.0002f, myRotationAxis) * glm::translate(glm::vec3(0.2f, 0, 1.9f)) * glm::scale(glm::vec3(0.45f));
+	glm::mat4 Moon2JupiterModelMatrix = glm::rotate(JupiterModelMatrix, (glm::mediump_float)moon_rotation_angle*0.25f, myRotationAxis) * glm::translate(glm::vec3(0.2f, 0, 1.9f)) * glm::scale(glm::vec3(0.45f));
 	drawObjectTexture(&sphereModel, Moon2JupiterModelMatrix, test_texture);
 
 	//Saturn
-	glm::mat4 SaturnModelMatrix = glm::rotate(glm::mat4(0.25f), (glm::mediump_float)around_rotation_angle*0.0002f, myRotationAxis) * glm::translate(glm::vec3(-6.0f, 0, 35.0f)) * glm::scale(glm::vec3(2.0f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*70.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	glm::mat4 SaturnModelMatrix = glm::rotate(glm::mat4(0.25f), (glm::mediump_float)around_rotation_angle*0.25f, myRotationAxis) * glm::translate(glm::vec3(-6.0f, 0, 35.0f)) * glm::scale(glm::vec3(2.0f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*30.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, SaturnModelMatrix, test_texture);
 
 	//Uranus
-	glm::mat4 UraniumModelMatrix = glm::rotate(glm::mat4(0.75f), (glm::mediump_float)around_rotation_angle*0.00002f, myRotationAxis) * glm::translate(glm::vec3(4.0f, 0, 47.5f)) * glm::scale(glm::vec3(1.8f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*65.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	glm::mat4 UraniumModelMatrix = glm::rotate(glm::mat4(0.75f), (glm::mediump_float)around_rotation_angle*0.4f, myRotationAxis) * glm::translate(glm::vec3(4.0f, 0, 47.5f)) * glm::scale(glm::vec3(1.8f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*35.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, UraniumModelMatrix, test_texture);
 
 	//Neptun
-	glm::mat4 NeptuneModelMatrix = glm::rotate(glm::mat4(0.45f), (glm::mediump_float)around_rotation_angle*0.0005f, myRotationAxis) * glm::translate(glm::vec3(1.5f, 0, 54.5f)) * glm::scale(glm::vec3(1.6f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*65.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
+	glm::mat4 NeptuneModelMatrix = glm::rotate(glm::mat4(0.45f), (glm::mediump_float)around_rotation_angle*0.5f, myRotationAxis) * glm::translate(glm::vec3(1.5f, 0, 54.5f)) * glm::scale(glm::vec3(1.6f)) * glm::rotate(glm::mat4(1.0f), (glm::mediump_float)y_rotation_angle*30.0f, myRotationAxis);//glm::rotate(glm::mat4(1.0f), (glm::mediump_float)rotation_angle, myRotationAxis);
 	drawObjectTexture(&sphereModel, NeptuneModelMatrix, test_texture);
 }
 
