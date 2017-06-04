@@ -59,6 +59,7 @@ glm::mat4 createCameraMatrix()
 	return Core::createViewMatrix(cameraPos, cameraDir, up);
 }
 
+/*
 void drawObjectColor(obj::Model * model, glm::mat4 modelMatrix, glm::vec3 color)
 {
 	GLuint program = programColor;
@@ -76,6 +77,7 @@ void drawObjectColor(obj::Model * model, glm::mat4 modelMatrix, glm::vec3 color)
 
 	glUseProgram(0);
 }
+*/
 
 void drawObjectTexture(obj::Model * model, glm::mat4 modelMatrix, GLuint id)
 {
